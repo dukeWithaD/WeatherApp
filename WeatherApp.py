@@ -41,6 +41,8 @@ class App(customtkinter.CTk):
         self.ozone_var = StringVar()
         self.humidity_var = StringVar()
         self.visibility_var = StringVar()
+        self.weather_var = StringVar()
+        self.summary_var = StringVar()
 
         self.enterCityLbl= customtkinter.CTkLabel(self, text = 'Enter City name:', font = ('Arial', 18)).place(x=190,y=40)
         self.cityEntry = customtkinter.CTkEntry(self, textvariable = self.city_value,  width = 300, height=40, font = ('Arial', 18)).place(x=330,y=35)
@@ -73,6 +75,8 @@ class App(customtkinter.CTk):
         self.ozoneLbl = customtkinter.CTkLabel(self, textvariable = self.ozone_var, font = ('Arial', 18)).place(x=600, y=250)
         self.humidityLbl = customtkinter.CTkLabel(self, textvariable = self.humidity_var, font = ('Arial', 18)).place(x=600, y=280)
         self.visibilityLbl = customtkinter.CTkLabel(self, textvariable = self.visibility_var, font = ('Arial', 18)).place(x=600, y=310)  
+        self.weatherLbl = customtkinter.CTkLabel(self, textvariable = self.weather_var, font = ('Arial', 18)).place(x=600, y=340)  
+        self.summaryLbl = customtkinter.CTkLabel(self, textvariable = self.summary_var, font = ('Arial', 14)).place(x=600, y=370)  
         self.searchBtn = customtkinter.CTkButton(self, command = self.showWeather, text = "Check Weather", font = ('Arial', 14), text_color="#c75d55", hover= True, 
         hover_color= "black", height=40, width= 140, border_width=2, corner_radius=10, border_color= "#c75d55", fg_color= "#262626").place(x=650,y=35)
  
@@ -85,7 +89,7 @@ class App(customtkinter.CTk):
         querystring = {"text":city_name}
 
         headers = {
-            "X-RapidAPI-Key": "b118b8c2b9msh54b9d5e717eeb13p1e41f4jsnc37a537f5b46",
+            "X-RapidAPI-Key": "4278142229mshb81b0105d4555bbp1aba29jsnb103c0c7f32e",
             "X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com"
         }
 
@@ -103,6 +107,9 @@ class App(customtkinter.CTk):
 
         weather_response = requests.request("GET", weather_url, headers=headers, params=infostring)
         weather_info = weather_response.json()
+
+        weather = str(weather_info['daily']['data'][0]['weather'])
+        summary = str(weather_info['daily']['data'][0]['summary'])
 
         temperature = str(weather_info['daily']['data'][0]['temperature'])
         temperature_min = str(weather_info['daily']['data'][0]['temperature_min'])
@@ -165,6 +172,9 @@ class App(customtkinter.CTk):
         self.ozone_var.set("Ozone: " +str(ozone))
         self.humidity_var.set("Humidity: " +str(humidity))
         self.visibility_var.set("Visibility: " +str(visibility))
+
+        self.weather_var.set("Weather: " +str(weather))
+        self.summary_var.set("Summary: " +str(summary))
 
 def main():
     App().mainloop()
