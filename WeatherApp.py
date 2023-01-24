@@ -4,10 +4,16 @@ import requests
 from PIL import Image, ImageTk
 import json
 from datetime import date
+import os
 
 today = str(date.today()) #Date
 customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("blue")
+
+imgPath_var = "5"
+folder_path = os.getcwd()
+path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
+img = customtkinter.CTkImage(Image.open(path), size=(250, 250))
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -86,9 +92,7 @@ class App(customtkinter.CTk):
         self.humidity.set("Humidity: ")
         self.visibility_var.set("Visibility: ")
 
-        self.img = ImageTk.PhotoImage(Image.open("E:\CODES\Python\SCHOOL\WeatherApp\WeatherApp\WeatherAppIcons\\1.png").resize((250,250)))
-        self.icon = customtkinter.CTkLabel(self, image=self.img).place(x=165,y=190)
-    
+        self.icon = customtkinter.CTkLabel(self, image=img, text="").place(x=165,y=190)
 
         self.container1 = customtkinter.CTkFrame(self, width=460,height=180).place(x=165,y=190)
         self.enterCityLbl= customtkinter.CTkLabel(self, text = 'Enter City name:', font = ('Arial', 18)).place(x=165,y=100)
@@ -118,7 +122,6 @@ class App(customtkinter.CTk):
         self.probPrecipLbl = customtkinter.CTkLabel(self, textvariable = self.prob_var, font = ('Arial', 18)).place(x=120, y=675)  
         self.speed = customtkinter.CTkLabel(self, textvariable = self.wind_var, font = ('Arial', 18)).place(x=375, y=675)  
         self.humidityLbl = customtkinter.CTkLabel(self, textvariable = self.humidity, font = ('Arial', 18)).place(x=575, y=675)
-        
 
         # self.angle = customtkinter.CTkLabel(self, textvariable = self.angle_var, font = ('Arial', 14)).place(x=400, y=220)
         # self.cloudCoverLbl = customtkinter.CTkLabel(self, textvariable = self.cloudCover_var, font = ('Arial', 18)).place(x=370, y=280) 
@@ -175,7 +178,7 @@ class App(customtkinter.CTk):
         querystring = {"text":city_name}
 
         headers = {
-            "X-RapidAPI-Key": "8bb23617cdmshc78891e98e1fb6ap174e17jsn6923028ddf51",
+            "X-RapidAPI-Key": "4278142229mshb81b0105d4555bbp1aba29jsnb103c0c7f32e",
             "X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com"
         }
 
@@ -222,6 +225,8 @@ class App(customtkinter.CTk):
         ozone = str(weather_info['daily']['data'][0]['ozone'])
         humidity = str(weather_info['daily']['data'][0]['humidity'])
         visibility = str(weather_info['daily']['data'][0]['visibility'])
+
+        icon = str(weather_info['daily']['data'][0]['icon'])
         
 
         self.location_var.set("Location")
@@ -265,7 +270,11 @@ class App(customtkinter.CTk):
         self.weather_var.set("Weather: " +str(weather.upper()))
         
         self.summary_var.set("Summary: " +str(summary))
-
+  
+        imgPath_var = icon
+        path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
+        new_image = customtkinter.CTkImage(Image.open(path), size=(250, 250))
+        self.icon = customtkinter.CTkLabel(self, image=new_image, text="").place(x=165,y=190)
 
 def main():
     App().mainloop()
