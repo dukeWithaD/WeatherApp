@@ -4,16 +4,10 @@ import requests
 from PIL import Image, ImageTk
 import json
 from datetime import date
-import os
 
 today = str(date.today()) #Date
 customtkinter.set_appearance_mode("Dark")
 
-#Global var
-imgPath_var = "5"
-folder_path = os.getcwd()
-path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
-img = customtkinter.CTkImage(Image.open(path), size=(250, 250))
 
 class App(customtkinter.CTk):
     
@@ -99,7 +93,8 @@ class App(customtkinter.CTk):
         # self.enterCityLbl= customtkinter.CTkLabel(self, text = 'Enter City name:', font = ('Arial', 18)).place(x=165,y=100)
         self.cityEntry = customtkinter.CTkEntry(self, placeholder_text="CTkEntry", fg_color="transparent", textvariable = self.city_value, width = 300, height=40, font = ('Arial', 14)).place(x=10,y=10)
 
-        self.icon = customtkinter.CTkLabel(self, image=img, text="", fg_color="transparent", anchor = CENTER).place(x=135,y=200)
+        self.img = ImageTk.PhotoImage(Image.open("E:\CODES\Python\SCHOOL\WeatherApp\WeatherApp\WeatherAppIcons\\1.png").resize((100,100)))
+        self.icon = customtkinter.CTkLabel(self, image=self.img, text="", fg_color="transparent", anchor = CENTER).place(x=135,y=200)
 
         self.searchBtn = customtkinter.CTkButton(self, command = self.showWeather, text = "Check Weather", font = ('Arial', 12), hover= True, 
         hover_color= "black", height=40, width= 140, border_width=2, corner_radius=10).place(x=10,y=60) #border_color= "#c75d55", fg_color= "#262626"  text_color="#c75d55",
@@ -125,7 +120,8 @@ class App(customtkinter.CTk):
         self.probPrecipLbl = customtkinter.CTkLabel(self, textvariable = self.prob_var, font = ('Arial', 16)).place(x=120, y=685)  
         self.speed = customtkinter.CTkLabel(self, textvariable = self.wind_var, font = ('Arial', 16)).place(x=375, y=685)  
         self.humidityLbl = customtkinter.CTkLabel(self, textvariable = self.humidity, font = ('Arial', 16)).place(x=575, y=685)
-    
+        
+
         # self.angle = customtkinter.CTkLabel(self, textvariable = self.angle_var, font = ('Arial', 14)).place(x=400, y=220)
         # self.cloudCoverLbl = customtkinter.CTkLabel(self, textvariable = self.cloudCover_var, font = ('Arial', 18)).place(x=370, y=280) 
         # self.pressLbl = customtkinter.CTkLabel(self, textvariable = self.press_var, font = ('Arial', 18)).place(x=370, y=310)
@@ -233,8 +229,6 @@ class App(customtkinter.CTk):
         ozone = str(weather_info['daily']['data'][0]['ozone'])
         humidity = str(weather_info['daily']['data'][0]['humidity'])
         visibility = str(weather_info['daily']['data'][0]['visibility'])
-
-        icon = str(weather_info['daily']['data'][0]['icon'])
         
 
         self.location_var.set("Location")
@@ -278,11 +272,7 @@ class App(customtkinter.CTk):
         self.weather_var.set("Weather: " +str(weather.replace("_", " ")))
         
         self.summary_var.set("Summary: " +str(summary))
-  
-        imgPath_var = icon
-        path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
-        new_image = customtkinter.CTkImage(Image.open(path), size=(250, 250))
-        self.icon = customtkinter.CTkLabel(self, image=new_image, text="").place(x=165,y=190)
+
 
 def main():
     App().mainloop()
