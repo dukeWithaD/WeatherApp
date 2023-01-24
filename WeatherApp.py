@@ -1,6 +1,7 @@
 from tkinter import *
 import customtkinter
 import requests
+from PIL import Image, ImageTk
 import json
 from datetime import date
 
@@ -84,6 +85,10 @@ class App(customtkinter.CTk):
         self.humidity_var.set("69")
         self.humidity.set("Humidity: ")
         self.visibility_var.set("Visibility: ")
+
+        self.img = ImageTk.PhotoImage(Image.open("E:\CODES\Python\SCHOOL\WeatherApp\WeatherApp\WeatherAppIcons\\1.png").resize((250,250)))
+        self.icon = customtkinter.CTkLabel(self, image=self.img).place(x=165,y=190)
+    
 
         self.container1 = customtkinter.CTkFrame(self, width=460,height=180).place(x=165,y=190)
         self.enterCityLbl= customtkinter.CTkLabel(self, text = 'Enter City name:', font = ('Arial', 18)).place(x=165,y=100)
