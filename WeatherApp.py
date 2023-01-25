@@ -193,7 +193,7 @@ class App(customtkinter.CTk):
             querystring = {"text":city_name}
 
             headers = {
-                "X-RapidAPI-Key": "c69806d239msh73745e777e8a3aap102eedjsn5e8c66713c8d",
+                "X-RapidAPI-Key": "PLACE YOUR TOKEN HERE",
                 "X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com"
             }
 
