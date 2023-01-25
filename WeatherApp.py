@@ -6,7 +6,9 @@ from datetime import date
 from tkinter import messagebox
 import os
 
+# Global variable for current dat, used inside the class
 today = str(date.today()) 
+
 customtkinter.set_appearance_mode("System")
 
 class App(customtkinter.CTk):
@@ -14,7 +16,8 @@ class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
 
-        #centering the win ==================
+        # Centering the win upon running ==================
+
         window_height = 800
         window_width = 700
 
@@ -26,11 +29,14 @@ class App(customtkinter.CTk):
 
         self.geometry("{}x{}+{}+{}".format(window_width, window_height, x_cordinate, y_cordinate))
 
-        #====================================
+        # ====================================
 
         self.iconbitmap("WeatherApp.ico")
         self.resizable(False, False)
         self.title("Weather App - by RandomPeeps")
+
+        # Defining Variables as a StringVar() ==========
+
         self.city_value = StringVar()
         self.location_var = StringVar()
         self.city_var = StringVar()
@@ -63,7 +69,12 @@ class App(customtkinter.CTk):
         self.visibility_var = StringVar()
         self.weather_var = StringVar()
         self.summary_var = StringVar()
+
+        # =================================================
         
+        # Setting value for StringVar() ===================
+        # Also serves as placeholder
+
         self.location_var.set("Location")
         self.city_var.set("City, Country")
         self.long_var.set("Longitude: ")
@@ -99,7 +110,13 @@ class App(customtkinter.CTk):
         self.humidity_var.set("0")
         self.humidity.set("Humidity: ")
         self.visibility_var.set("Visibility: ")
-        
+
+        # =================================================
+
+        # Initializing customtkinter elements =============
+        # Positioning inside the window using .place()
+        # This is where we use the StringVar()
+
         self.cityEntry = customtkinter.CTkEntry(self, textvariable = self.city_value, fg_color="transparent",  
                                                 width = 280, height=40, font = ('Arial', 14)).place(x=46,y=25)
 
@@ -174,11 +191,20 @@ class App(customtkinter.CTk):
         
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self, height=37, corner_radius=10, values=["Dark", "Light"], command=self.set_appearance_mode)
         self.appearance_mode_optionemenu.place(x=514, y=25)
+
+        # =================================================
+
         customtkinter.set_default_color_theme("blue")
+    
+    # A function for changing theme (Light or Dark) =======
 
     def set_appearance_mode(self, new_default_color_theme: str):
         customtkinter.set_appearance_mode(new_default_color_theme)
-        
+
+    # =====================================================
+
+    # A function for the button search ====================
+
     def showWeather(self):
         if len(self.textbox.get("1.0", END))>=1: #check if the textbox is not empty
             self.textbox.delete("1.0", END) #if not, delete prev. summary
@@ -193,7 +219,7 @@ class App(customtkinter.CTk):
             querystring = {"text":city_name}
 
             headers = {
-                "X-RapidAPI-Key": "PLACE YOUR TOKEN HERE",
+                "X-RapidAPI-Key": "PLACE YOUR TOKEN HERE", # Visit the link below, sign-up, subscribe, and copy the key then paste it here
                 "X-RapidAPI-Host": "ai-weather-by-meteosource.p.rapidapi.com"
             }
 
@@ -296,7 +322,13 @@ class App(customtkinter.CTk):
         self.weather_var.set("Weather: " +str(weather))
         self.summary_var.set("Summary: " +str(summary))
 
+    # =====================================================
+
+# Function, calling the class and starting an event loop
+
 def main():
     App().mainloop()
 
-main()
+# ======================================================
+
+main() # Calling the function main, without this you won't see anything
