@@ -249,7 +249,7 @@ class App(customtkinter.CTk):
             self.long_var.set("Longitude: "+coordinatesLong)
             self.lat_var.set("Latitude: "+coordinatesLat)
 
-            rounded_temp = round(temperature, 2)
+            rounded_temp = round(temperature, 1)
 
             self.temp_var.set(str(rounded_temp)+"°C")
             self.tempMin_var.set("Min Temperature: "+str(temperature_min)+"°C")
