@@ -28,6 +28,7 @@ class App(customtkinter.CTk):
 
         #====================================
 
+        self.iconbitmap("WeatherApp.ico")
         self.resizable(False, False)
         self.title("Weather App - by RandomPeeps")
         self.city_value = StringVar()
