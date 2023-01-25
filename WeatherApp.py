@@ -62,7 +62,7 @@ class App(customtkinter.CTk):
         self.visibility_var = StringVar()
 
         self.location_var.set("Location")
-        self.city_var.set("Lorem ipsu, Lorem ipsu...")
+        self.city_var.set("City, Country")
         self.long_var.set("Longitude: ")
         self.lat_var.set("Latitude: ")
         self.weather_var.set("sunny")
