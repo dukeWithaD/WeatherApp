@@ -10,7 +10,7 @@ today = str(date.today()) #Date
 customtkinter.set_appearance_mode("System")
 
 #Global var
-imgPath_var = "5"
+imgPath_var = "2"
 folder_path = os.getcwd()
 path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
 img = customtkinter.CTkImage(Image.open(path) ,size=(200, 200))
@@ -93,7 +93,7 @@ class App(customtkinter.CTk):
         self.humidity_var.set("69")
         self.humidity.set("Humidity: ")
         self.visibility_var.set("Visibility: ")
-     
+        
 
         # self.container1 = customtkinter.CTkFrame(self, width=460,height=180, fg_color="transparent").place(x=325,y=190)
         # self.enterCityLbl= customtkinter.CTkLabel(self, text = 'Enter City name:', font = ('Arial', 18)).place(x=165,y=100)
@@ -106,19 +106,25 @@ class App(customtkinter.CTk):
                                                 hover_color= "black", height=40, width= 130, border_width=2, corner_radius=10).place(x=46,y=103) #border_color= "#c75d55", fg_color= "#262626"  text_color="#c75d55",
         
         # self.locationLbl = customtkinter.CTkLabel(self, textvariable = self.location_var, font = ('Arial', 18)).place(x=100, y=100)
-        self.left_frame = customtkinter.CTkFrame(self, width=300, height=300, corner_radius=5).place(x=35, y=200)
-        # self.bg_color = self.left_frame.cget("foreground")
-        self.cityLbl = customtkinter.CTkLabel(self.left_frame, textvariable=self.city_var, font = ('Arial', 25)).place(x=185, y=220, anchor = CENTER)   
-        self.icon = customtkinter.CTkLabel(self.left_frame, image=img, text="", anchor = CENTER).place(x=85,y=260)
-        self.weatherLbl = customtkinter.CTkLabel(self.left_frame, textvariable = self.weather_var, font = ('Arial', 22)).place(x=185, y=480, anchor=CENTER)
+        self.left_frame = customtkinter.CTkFrame(self, width=300, height=300, corner_radius=5)#.place(x=35, y=200)
+        self.left_frame.grid(row=0, column=0, sticky="nsew", padx=(25, 345), pady=(200, 350))
+        self.left_frame.grid_rowconfigure(1, weight=1)
+        #self.left_frame.place(x=35, y=200)
+        # self.left_frame.cget("foreground")
+        # bg_color = self.left_frame.cget("background")
+        self.cityLbl = customtkinter.CTkLabel(self.left_frame, textvariable=self.city_var, font = ('Arial', 25)).place(x=160, y=40, anchor = CENTER)   
+        self.icon = customtkinter.CTkLabel(self.left_frame, image=img, text="", anchor = CENTER).place(x=65,y=60)
+        self.weatherLbl = customtkinter.CTkLabel(self.left_frame, textvariable = self.weather_var, font = ('Arial', 22)).place(x=165, y=280, anchor=CENTER)
         # self.countryLbl = customtkinter.CTkLabel(self, textvariable = self.country_var, font = ('Arial', 14)).place(x=130, y=160)
         # self.longLbl = customtkinter.CTkLabel(self, textvariable = self.long_var, font = ('Arial', 14)).place(x=130, y=190)
 
         # self.latLbl = customtkinter.CTkLabel(self, textvariable = self.lat_var, font = ('Arial', 14)).place(x=130, y=220) 
-        self.right_frame = customtkinter.CTkFrame(self, width=300, height=300, corner_radius=5).place(x=365, y=200)
-        self.dateLbl = customtkinter.CTkLabel(self, text= f"Date: {today}", font = ('Arial', 25), anchor = CENTER).place(x=415, y=207)  
-        self.tempLbl = customtkinter.CTkLabel(self, textvariable = self.temp_var, font = ('Arial', 90)).place(x=515, y=350, anchor = CENTER)
-        self.feelsLbl = customtkinter.CTkLabel(self, textvariable = self.feelsLike_var, font = ('Arial', 18)).place(x=515, y=425, anchor = CENTER)
+        self.right_frame = customtkinter.CTkFrame(self, width=300, height=300, corner_radius=5)#.place(x=365, y=200)
+        self.right_frame.grid(row=0, column=0, sticky="nsew",padx=(355, 15), pady=(200, 350))
+        self.right_frame.grid_rowconfigure(1, weight=1)
+        self.dateLbl = customtkinter.CTkLabel(self.right_frame, text= f"Date: {today}", font = ('Arial', 25), anchor = CENTER).place(x=60, y=30)  
+        self.tempLbl = customtkinter.CTkLabel(self.right_frame, textvariable = self.temp_var, font = ('Arial', 90)).place(x=160, y=175, anchor = CENTER)
+        self.feelsLbl = customtkinter.CTkLabel(self.right_frame,textvariable = self.feelsLike_var, font = ('Arial', 18)).place(x=155, y=250, anchor = CENTER)
         
 
         self.probPrecipLbl = customtkinter.CTkLabel(self, textvariable = self.probPrecip_var, font = ('Arial', 50)).place(x=140, y=590, anchor = CENTER)  
@@ -183,8 +189,14 @@ class App(customtkinter.CTk):
         customtkinter.set_default_color_theme("green")
 
     def set_appearance_mode(self, new_default_color_theme: str):
-        
         customtkinter.set_appearance_mode(new_default_color_theme)
+    
+        # if (self.appearance_mode_optionemenu == "Dark"):
+        #     self.fg_c = "#242424"
+        # else:
+        #     self.fg_c = "#dbdbdb"
+        
+        # return self.fg_c
         # customtkinter.set_appearance_mode(new_default_color_theme)
         #main()
         # customtkinter.set_appearance_mode(new_default_color_theme)
@@ -297,7 +309,7 @@ class App(customtkinter.CTk):
         imgPath_var = icon
         path = f"{folder_path}\WeatherAppIcons\\" + str(imgPath_var) + ".png"
         new_image = customtkinter.CTkImage(Image.open(path),size=(200, 200))
-        self.icon = customtkinter.CTkLabel(self, image=new_image, text="").place(x=95,y=260)
+        self.icon = customtkinter.CTkLabel(self.left_frame, image=new_image, text="", fg_color="transparent").place(x=65,y=60)
 
 def main():
     App().mainloop()
