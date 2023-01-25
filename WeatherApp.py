@@ -61,7 +61,9 @@ class App(customtkinter.CTk):
         self.humidity = StringVar()
         self.weather_var = StringVar()
         self.visibility_var = StringVar()
-
+        self.weather_var = StringVar()
+        self.summary_var = StringVar()
+        
         self.location_var.set("Location")
         self.city_var.set("City, Country")
         self.long_var.set("Longitude: ")
@@ -290,6 +292,9 @@ class App(customtkinter.CTk):
             self.path = f"{self.folder_path}\WeatherAppIcons\\" + str(self.imgPath_var) + ".png"
             self.new_image = customtkinter.CTkImage(Image.open(self.path),size=(200, 200))
             self.icon = customtkinter.CTkLabel(self.left_frame, image=self.new_image, text="", fg_color="transparent").place(x=65,y=60)
+
+        self.weather_var.set("Weather: " +str(weather))
+        self.summary_var.set("Summary: " +str(summary))
 
 def main():
     App().mainloop()
